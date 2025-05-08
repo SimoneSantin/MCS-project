@@ -1,0 +1,1 @@
+Project1Bis consists in the implementation of a mini-library that performs iterative solvers for matrices using the Jacobi, Gauss-Seidel, Gradient Descent, and Conjugate Gradient methods in Julia. The library is then tested, and its data and results are saved.
