@@ -1,6 +1,6 @@
 include("compressionLib.jl")
 
-using Dash, DashCoreComponents, DashHtmlComponents
+using Dash
 using FFTW, Images, Base64, ImageView
 using JSON
 
@@ -65,8 +65,8 @@ callback!(
         imshow(gray_img, name="Originale")
 
         # Compressione
-        fragments = split_into_blocks(gray_img, block_size)
-        compressed = compress_blocks(fragments, cutoff)
+        fragments = image_to_blocks(gray_img, block_size)
+        compressed = image_compress(fragments, cutoff)
 
         img_h, img_w = size(gray_img)
         valid_h = block_size * fld(img_h, block_size)
