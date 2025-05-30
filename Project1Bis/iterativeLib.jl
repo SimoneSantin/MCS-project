@@ -1,26 +1,6 @@
 using SparseArrays
 using LinearAlgebra
 
-function load_matrix(file_path)
-    open(file_path) do file
-        header = readline(file)
-        rows, cols, values = split(header, "  ")
-        rows = parse(Int32, rows)
-        cols = parse(Int32, cols)
-        values = parse(Int32, values)
-        
-        matrix = zeros(rows, cols)
-        for line in eachline(file)
-            i, j, v = split(line, "  ")
-            i = parse(Int32, i)
-            j = parse(Int32, j)
-            v = parse(Float64, v)
-            matrix[i, j] = v
-        end
-        return matrix
-    end
-end
-
 function load_sparse_matrix(file_path)
     open(file_path) do file
         header = readline(file)
@@ -126,32 +106,6 @@ function conjugate_gradient_method(A, b, tolerance, max_iterations=20000)
     end
 
     return x, iterations
-end
-
-function get_pivot_index(U, pivot_type, k)
-    n = size(U, 1)
-    pivot = k
-    if pivot_type == "partial"
-        max_value = abs(U[k, k])
-        for i = k+1:n
-            if abs(U[i, k]) > max_value
-                max_value = abs(U[i, k])
-                pivot = i
-            end
-        end
-    end
-    if pivot_type == "total"
-        max_value = abs(U[k, k])
-        for i = k+1:n
-            for j = k+1:n
-                if abs(U[i, j]) > max_value
-                    max_value = abs(U[i, j])
-                    pivot = i
-                end
-            end
-        end
-    end
-    return pivot
 end
 
 function generate_b_vector(A)

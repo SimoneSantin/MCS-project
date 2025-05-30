@@ -120,7 +120,7 @@ for matrix_name in MATRICES
 
     y_values = [iterations_jacobi iterations_gs iterations_grad iterations_cgrad]
     x_labels = string.(TOLERANCES)
-    method_labels = repeat(["Jacobi", "Gauss-Seidel", "Gradient", "Conjugate Gradient"])
+    method_labels = repeat(["Jacobi", "Gauss-Seidel", "Gradient", "Conjugate Gradient"],1)
 
     plt = groupedbar(
         x_labels,
@@ -130,7 +130,7 @@ for matrix_name in MATRICES
         xlabel = "Tolerance",
         ylabel = "Number of Iterations",
         yscale = :log10,
-        legend = :topleft,
+        legend = :outerbottom,
         title = "Number of Iterations vs Tolerance - $(uppercase(matrix_name))",
         size = (900, 600)
     )
@@ -148,7 +148,6 @@ for matrix_name in MATRICES
     savefig(OUTPUT_DIR * "$(matrix_name)_iterations_barplot.png")
     println("Saved barplot with iterations for matrix $matrix_name")
 end
-
 for matrix_name in MATRICES
     iterations_jacobi = Float64[]
     iterations_gs = Float64[]
@@ -168,19 +167,19 @@ for matrix_name in MATRICES
 
     y_values = [iterations_jacobi iterations_gs iterations_grad iterations_cgrad]
     x_labels = string.(TOLERANCES)
-    method_labels = repeat(["Jacobi", "Gauss-Seidel", "Gradient", "Conjugate Gradient"])
+    method_labels = ["Jacobi", "Gauss-Seidel", "Gradient", "Conjugate Gradient"]
 
     plt = groupedbar(
         x_labels,
         y_values;
         bar_position = :dodge,
-        label = method_labels,
-        xlabel = "Tolerance",
-        ylabel = "Time required (ms)",
-        yscale = :log10,
-        legend = :topleft,
-        title = "Time required (ms) vs Tolerance - $(uppercase(matrix_name))",
-        size = (900, 600)
+        labels=["Jacobi", "Gauss-Seidel", "Gradient", "Conjugate Gradient"], 
+        xlabel="Tolerance",
+        ylabel="Time required (ms)",
+        yscale=:log10,
+        legend=:outerbottom,
+        title="Time required (ms) vs Tolerance - $(uppercase(matrix_name))",
+        size=(900, 600)
     )
 
     n_methods = length(method_labels)
@@ -193,7 +192,9 @@ for matrix_name in MATRICES
             annotate!(x_pos, y * 1.3, text(@sprintf("%.1f", y), :black, 8, :center))
         end
     end
+
     savefig(OUTPUT_DIR * "$(matrix_name)_time_barplot.png")
     println("Saved barplot with time for matrix $matrix_name")
 end
+
 
