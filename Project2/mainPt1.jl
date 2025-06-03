@@ -5,7 +5,7 @@ using Statistics
 using JSON
 
 const OUTPUT_DIR = "Project2/results/"
-matrix_sizes = [10, 20, 40, 80, 160, 320, 640]
+matrix_sizes = [10]
 iterations = 10
 
 function save_results(results::Dict, filename::String)
@@ -74,7 +74,7 @@ println("Grafico salvato in 'results/dct2_plot.png'")
 #TEST DCT1 e DCT2 functions
 
 v = [231 32 233 161 24 71 140 245]
-println(DCT1(v))
+println(FFTW.dct(v))
 
 
 A = [231 32 233 161 24 71 140 245
@@ -85,7 +85,7 @@ A = [231 32 233 161 24 71 140 245
     97 195 203 47 125 114 165 181
     193 70 174 167 41 30 127 245
     87 149 57 192 65 129 178 228]
-B = DCT2(A)
+B = FFTW.dct(A)
 println("\nDCT2\n", B)
 
 for i = eachindex(B[:, 1])
