@@ -11,7 +11,7 @@ const DATA_DIR = "Project1Bis/data/"
 const OUTPUT_DIR = "results/"
 const MATRICES = ["spa1", "spa2", "vem1", "vem2"]
 const TOLERANCES = [1e-4, 1e-6, 1e-8, 1e-10]
-#=
+
 function relative_error(x_approx, x_exact)
     return norm(x_approx - x_exact) / norm(x_exact)
 end
@@ -64,7 +64,6 @@ for matrix_name in MATRICES
         save_results(results, filename)
     end
 end
-=#
 
 for matrix_name in MATRICES
     errors_jacobi = Float64[]

@@ -4,8 +4,8 @@ using FFTW
 using Statistics
 using JSON
 
-const OUTPUT_DIR = "Project2/results/"
-matrix_sizes = [10]
+const OUTPUT_DIR = "results/"
+matrix_sizes = [10, 20, 40, 80, 160, 320, 640]
 iterations = 10
 
 function save_results(results::Dict, filename::String)
@@ -67,6 +67,10 @@ plot!(
     label = "FFTW DCT2", lw = 2, marker = :diamond
 )
 
+plot!(matrix_sizes, [1e-7 * n^3 for n in matrix_sizes], label="N³", ls=:dash)
+plot!(matrix_sizes, [1e-7 * n^2*log2(n) for n in matrix_sizes], label="N² log N", ls=:dot)
+
+
 plot!(legend=:topleft)
 savefig(OUTPUT_DIR * "dct2_plot.png")
 println("Grafico salvato in 'results/dct2_plot.png'")
@@ -91,5 +95,3 @@ println("\nDCT2\n", B)
 for i = eachindex(B[:, 1])
      println(B[i, :])
 end
-
-
