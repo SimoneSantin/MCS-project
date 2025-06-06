@@ -21,6 +21,25 @@ function load_sparse_matrix(file_path)
     end
 end
 
+function generate_b_vector(A)
+    x = ones(size(A, 1))
+    b = A * x
+    return b
+end
+
+function forward_substitution(A, b)
+    n = size(A, 1)
+    x = zeros(n)
+    x[1] = b[1] / A[1, 1]
+    for i = 2:n
+        x[i] = b[i]
+        for j = 1:i-1
+            x[i] -= A[i, j] * x[j]
+        end
+        x[i] /= A[i, i]
+    end
+    return x
+end
 function jacobi_method(A, b, tolerance, max_iterations=20000)
     println("Executing Jacobi Method")
 
@@ -108,22 +127,3 @@ function conjugate_gradient_method(A, b, tolerance, max_iterations=20000)
     return x, iterations
 end
 
-function generate_b_vector(A)
-    x = ones(size(A, 1))
-    b = A * x
-    return b
-end
-
-function forward_substitution(A, b)
-    n = size(A, 1)
-    x = zeros(n)
-    x[1] = b[1] / A[1, 1]
-    for i = 2:n
-        x[i] = b[i]
-        for j = 1:i-1
-            x[i] -= A[i, j] * x[j]
-        end
-        x[i] /= A[i, i]
-    end
-    return x
-end
